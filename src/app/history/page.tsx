@@ -1,11 +1,12 @@
 import History from '@/components/app/History/History'
 import prisma from '@/lib/db'
-import { currentUser } from '@clerk/nextjs'
+import { validateRequest } from '@/lib/auth';
 
 export default async function Page() {
+    const { user } = await validateRequest();
     const pointHistory = (await prisma.point.findMany({
         where: {
-            userId: (await currentUser())!.id
+            userId: user!.id
         }
     })).sort((a, b) => b.createdAt.getTime() - a.createdAt.getTime()).map(p => {
         return {

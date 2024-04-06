@@ -11,9 +11,11 @@ import {
 import { Input } from "@/components/ui/input"
 import prisma from "@/lib/db"
 import { redirect } from "next/navigation"
-import { currentUser } from "@clerk/nextjs"
+import { validateRequest } from "@/lib/auth"
 
-export default function DesktopPoints() {
+export default async function Points() {
+  const { user } = await validateRequest();
+  
   async function createPoints(formData: FormData) {
     'use server'
 
@@ -24,14 +26,14 @@ export default function DesktopPoints() {
 
     await prisma.point.create({
       data: {
-        userId: (await currentUser())!.id,
+        userId: user!.id,
         number: Number(rawFormData.points),
         reason: rawFormData.reason as string,
       }
     })
     await prisma.pointCount.upsert({
       where: {
-        userId: (await currentUser())!.id,
+        userId: user!.id,
       },
       update: {
         balance: {
@@ -39,7 +41,7 @@ export default function DesktopPoints() {
         }
       },
       create: {
-        userId: (await currentUser())!.id,
+        userId: user!.id,
         balance: Number(rawFormData.points),
       }
     })

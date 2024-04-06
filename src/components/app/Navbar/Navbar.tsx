@@ -4,12 +4,14 @@
  * Documentation: https://v0.dev/docs#integrating-generated-code-into-your-nextjs-app
  */
 import { Button } from "@/components/ui/button"
-import { DropdownMenuShortcut } from "@/components/ui/dropdown-menu"
-import { UserButton } from "@clerk/nextjs"
 import { DropdownMenu, DropdownMenuTrigger, DropdownMenuContent, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuGroup, DropdownMenuItem } from "@/components/ui/dropdown-menu"
+import { lucia, validateRequest } from "@/lib/auth"
+import { cookies } from "next/headers"
 import Link from "next/link"
+import { redirect } from "next/navigation"
 
-export default function Navbar() {
+export default async function Navbar() {
+  const { user } = await validateRequest();
   return (
     <nav className="flex items-center h-16 px-4 border-b shrink-0">
       <DropdownMenu>
@@ -41,11 +43,34 @@ export default function Navbar() {
               </DropdownMenuItem>
             </Link>
           </DropdownMenuGroup>
+          {user && (
+            <>
+              <DropdownMenuSeparator />
+              <DropdownMenuGroup>
+                  <form action={logout}>
+                    <DropdownMenuItem>
+                      <Button variant={"ghost"} size={'text'}>Log out</Button>
+                    </DropdownMenuItem>
+                  </form>
+              </DropdownMenuGroup>
+            </>
+          )}
         </DropdownMenuContent>
       </DropdownMenu>
       <div className="flex-1" />
-      <UserButton />
     </nav>
   )
 }
 
+async function logout(): Promise<ActionResult> {
+	"use server";
+  const { session } = await validateRequest();
+	await lucia.invalidateSession(session!.id);
+	const sessionCookie = lucia.createBlankSessionCookie();
+	cookies().set(sessionCookie.name, sessionCookie.value, sessionCookie.attributes);
+	return redirect("/auth/signUp");
+}
+
+interface ActionResult {
+  error: string;
+}

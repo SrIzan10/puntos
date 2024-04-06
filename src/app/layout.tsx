@@ -3,6 +3,7 @@ import localFont from 'next/font/local'
 import "./globals.css";
 import { ClerkProvider } from "@clerk/nextjs";
 import Navbar from "@/components/app/Navbar/Navbar";
+import Protected from "@/components/app/Protected/Protected";
 
 const satoshi = localFont({ src: './fonts/Satoshi-Medium.woff2' })
 
@@ -22,15 +23,15 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <ClerkProvider>
       <html lang="es">
         <body className={`${satoshi.className}`}>
           <Navbar />
-          <div className="p-2">
-            {children}
-          </div>
+          <Protected>
+            <div className="p-2">
+              {children}
+            </div>
+          </Protected>
         </body>
       </html>
-    </ClerkProvider>
   );
 }

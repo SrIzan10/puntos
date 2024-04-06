@@ -1,7 +1,12 @@
-import { authMiddleware } from "@clerk/nextjs";
+import { NextResponse } from 'next/server';
 
-export default authMiddleware({});
+export function middleware(request: Request) {
+  const requestHeaders = new Headers(request.headers);
+  requestHeaders.set('x-url', new URL(request.url).pathname);
 
-export const config = {
-  matcher: ["/((?!.+.[w]+$|_next).*)", "/", "/(api|trpc)(.*)"],
-};
+  return NextResponse.next({
+    request: {
+      headers: requestHeaders
+    }
+  });
+}

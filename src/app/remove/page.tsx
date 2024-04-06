@@ -1,11 +1,12 @@
 import RemovePoints from "@/components/app/RemovePoints/RemovePoints"
+import { validateRequest } from "@/lib/auth";
 import prisma from "@/lib/db"
-import { currentUser } from "@clerk/nextjs"
 
 export default async function Page() {
+    const { user } = await validateRequest();
     const pointCount = (await prisma.pointCount.findFirst({
         where: {
-          userId: (await currentUser())!.id,
+          userId: user!.id,
         }
     }))!.balance
     return (
