@@ -50,7 +50,7 @@ export default async function Points() {
   return (
     <Card className="lg:w-[350px] w-full flex flex-col items-center justify-center">
       <CardHeader>
-        <CardTitle>Añade o elimina puntos</CardTitle> 
+        <CardTitle>Añade puntos</CardTitle> 
         <CardDescription>wow enhorabuena</CardDescription>
       </CardHeader>
         <form action={createPoints}>

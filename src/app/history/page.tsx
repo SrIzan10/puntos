@@ -16,5 +16,6 @@ export default async function Page() {
             id: p.id
         }
     })
+    if (pointHistory.length === 0) return <h1 className="text-3xl text-center">venga tio, a ganar puntos</h1>
     return pointHistory.map(p => <History key={p.id} {...p} />)
 }

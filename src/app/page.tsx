@@ -1,7 +1,6 @@
 import Points from "@/components/app/Points/Points";
 import prisma from "@/lib/db";
 import { validateRequest } from "@/lib/auth";
-import { redirect } from "next/navigation";
 
 export default async function Home() {
   const { user } = await validateRequest();

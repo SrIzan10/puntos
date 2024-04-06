@@ -31,10 +31,10 @@ export default function Component() {
             </div>
             <Button className="w-full" type="submit">Iniciar sesión</Button>
             <div className="text-center text-sm">
-            ¿No tienes una cuenta?
-            <Link className="underline pl-1" href="/auth/signUp">
-                Crear una cuenta
-            </Link>
+				¿No tienes una cuenta?
+				<Link className="underline pl-1" href="/auth/signUp">
+					Crear una cuenta
+				</Link>
             </div>
         </div>
         </form>
