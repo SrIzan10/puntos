@@ -8,7 +8,7 @@ export default async function Page() {
         where: {
           userId: user!.id,
         }
-    }))!.balance
+    }) || { balance: 0 }).balance
     return (
         <>
             <h1 className="text-3xl text-center mb-6">tienes {pointCount} puntos</h1>
