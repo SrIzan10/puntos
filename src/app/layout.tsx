@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import localFont from 'next/font/local'
 import "./globals.css";
-import { ClerkProvider } from "@clerk/nextjs";
 import Navbar from "@/components/app/Navbar/Navbar";
 import Protected from "@/components/app/Protected/Protected";
 
