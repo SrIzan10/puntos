@@ -24,11 +24,11 @@ export default function Component() {
         <div className="space-y-4">
           <div className="space-y-2">
             <Label htmlFor="username">Nombre de usuario</Label>
-            <Input name="username" placeholder="srizan" required type="text" id="username" />
+            <Input name="username" required type="text" id="username" />
           </div>
           <div className="space-y-2">
             <Label htmlFor="password">Contraseña</Label>
-            <Input name="password" placeholder="osakafromazumangadaioh123" required type="password" id="password" />
+            <Input name="password" required type="password" id="password" />
           </div>
           <Button className="w-full" type="submit">Registrarse</Button>
           <div className="text-center text-sm">

@@ -23,11 +23,11 @@ export default function Component() {
             <div className="space-y-4">
             <div className="space-y-2">
                 <Label htmlFor="email">Nombre de usuario</Label>
-                <Input name="username" id="username" placeholder="srizan" required type="text" />
+                <Input name="username" id="username" required type="text" />
             </div>
             <div className="space-y-2">
                 <Label htmlFor="password">Password</Label>
-                <Input name="password" id="password" placeholder="osakafromazumangadaioh123" required type="password" />
+                <Input name="password" id="password" required type="password" />
             </div>
             <Button className="w-full" type="submit">Iniciar sesión</Button>
             <div className="text-center text-sm">
